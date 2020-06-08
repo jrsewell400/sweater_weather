@@ -9,21 +9,16 @@ describe 'Food Location Request' do
 
       expect(json[:data][:id]).to eq(nil)
       expect(json[:data][:type]).to eq("foodie")
-      expect(json[:data][:attributes].keys).to eq([:end_location, :travel_time, :forecast, :restaurant])
+      expect(json[:data][:attributes].keys).to eq([:id, :end_location, :travel_time, :forecast, :restaurant])
+      expect(json[:data][:attributes][:end_location]).to eq('Pueblo, CO, USA')
       
+      expect(json[:data][:attributes][:forecast].keys).to eq([:summary, :temperature])
+      expect(json[:data][:attributes][:forecast][:summary]).to be_a(String)
+      expect(json[:data][:attributes][:forecast][:temperature]).to be_a(Integer)
       
-      # expect(json[:data][:attributes]).to include(
-      #   end_location: 'Pueblo, CO, USA',
-      #   travel_time: '1 hour 48 mins',
-      #   forecast: {
-      #     summary: 'clear sky',
-      #     temperature: 77
-      #   },
-      #   restaurant: {
-      #     name: 'Bingo Burger',
-      #     address: '101 Central Plaza 81003'
-      #   }
-      # )
+      expect(json[:data][:attributes][:restaurant].keys).to eq([:name, :address])
+      expect(json[:data][:attributes][:restaurant][:name]).to eq('Bingo Burger')
+      expect(json[:data][:attributes][:restaurant][:address]).to eq('101 Central Plaza 81003')
     end
   end
 end
