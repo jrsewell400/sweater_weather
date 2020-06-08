@@ -11,4 +11,9 @@ class GoogleService
     end
     JSON.parse(response.body, symbolize_names: true)
   end
+
+  def get_distance(starting, ending)
+    response = connection.get("maps/api/directions/json?origin=#{starting}&destination=#{ending}&key=#{ENV['GOOGLE-DIRECTIONS-KEY']}")
+    JSON.parse(response.body, symbolize_names: true)
+  end
 end
