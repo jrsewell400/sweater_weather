@@ -8,11 +8,11 @@ describe 'Food Location Request' do
       json = JSON.parse(response.body)
 
       expect(json['data']['attributes']).to include(
-        end_location: 'pueblo,co',
+        end_location: 'Pueblo, CO, USA',
         travel_time: '1 hours 48 min',
         forecast: {
-          summary: 'Cloudy with a chance of meatballs',
-          temperature: '83'
+          summary: 'clear sky',
+          temperature: '72'
         },
         restaurant: {
           name: 'Angelo\'s Pizza Parlor',
