@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Retreive City Weather' do
+RSpec.describe 'Weather Request' do
   it 'returns required information.' do
     location = {location: "denver, co"}
     
