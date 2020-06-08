@@ -9,7 +9,8 @@ class GoogleService
     response = connection.get('maps/api/geocode/json') do |req|
       req.params['address'] = location
     end
-    JSON.parse(response.body, symbolize_names: true)
+    coordinates = JSON.parse(response.body, symbolize_names: true)
+    coordinates[:results][0][:geometry][:location].merge(location: coordinates[:results][0][:formatted_address])
   end
 
   def get_distance(starting, ending)
