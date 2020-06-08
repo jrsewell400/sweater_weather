@@ -3,11 +3,12 @@ class FoodieInfo
               :forecast
               
 
-  def initialize(location, weather)
+  def initialize(location, weather, distance)
     @end_location = location[:results][0][:formatted_address]
     @weather = convert_temp(weather[:current][:temp]).round
     @summary = weather[:current][:weather][0][:description]
     @forecast = create_forecast_hash(@weather, @summary)
+    @travel_time = distance[:routes][0][:legs][0][:duration][:text]
     binding.pry
   end
 
