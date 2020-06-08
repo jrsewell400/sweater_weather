@@ -1,15 +1,17 @@
 class FoodieInfo
   attr_reader :end_location, 
-              :forecast
+              :forecast,
+              :travel_time
               
-
-  def initialize(location, weather, distance)
-    @end_location = location[:results][0][:formatted_address]
+  def initialize(location, weather, distance, food)
     @weather = convert_temp(weather[:current][:temp]).round
     @summary = weather[:current][:weather][0][:description]
+
+    @end_location = location[:results][0][:formatted_address]
     @forecast = create_forecast_hash(@weather, @summary)
     @travel_time = distance[:routes][0][:legs][0][:duration][:text]
-    binding.pry
+    @restaurant = 
+    # binding.pry
   end
 
   def convert_temp(temp)
