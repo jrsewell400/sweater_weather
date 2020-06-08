@@ -8,8 +8,11 @@ class Api::V1::FoodieController < ApplicationController
 
     # Getting distance information between locations
     distance_info = GoogleService.new.get_distance(params[:start], params[:end])
+
+    # Getting restaraunt information from Zomato
+    food_info = ZomatoService.new.get_restaraunt(lat, long, params[:search])
     # binding.pry
     
-    foodie_info = FoodieInfo.new(location_info, weather_info, distance_info)
+    foodie_info = FoodieInfo.new(location_info, weather_info, distance_info, food_info)
   end
 end
