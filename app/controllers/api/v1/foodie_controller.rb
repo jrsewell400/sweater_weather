@@ -11,8 +11,11 @@ class Api::V1::FoodieController < ApplicationController
 
     # Getting restaraunt information from Zomato
     food_info = ZomatoService.new.get_restaraunt(lat, long, params[:search])
-    # binding.pry
-    
+
+    # Information aggregated in poro
     foodie_info = FoodieInfo.new(location_info, weather_info, distance_info, food_info)
+
+    # Render serialized response after aggregation
+    render json: FoodieSerializer.new(foodie_info)
   end
 end
