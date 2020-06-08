@@ -22,6 +22,7 @@ group :development, :test do
   gem 'pry'
   gem 'simplecov'
   gem 'selenium-webdriver'
+  # gem 'vcr'
   gem 'webdrivers'
   gem 'webmock'
 end
