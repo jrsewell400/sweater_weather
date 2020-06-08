@@ -30,6 +30,9 @@ class FoodieInfo
   end
 
   def create_restaurant_hash(name, address)
+    # Calculable.create_hash(name, address, arg_names)
+    # Use something (merb gem or .parameters) to get the actual argument names 
+    # (ie name, address) so I can use those as the key names in the Hashable module
     hashed_info = {}
     hashed_info[:name] = name
     hashed_info[:address] = address
