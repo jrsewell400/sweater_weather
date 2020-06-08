@@ -15,5 +15,14 @@ RSpec.describe GoogleService do
         expect(json[:results][0][:geometry][:location][:lng]).to be_a(Float)
       end
     end
+
+    context "get_distance" do
+      it "returns Google Maps distance data" do 
+        json = GoogleService.new.get_distance('pueblo,co', 'denver,co')
+
+        expect(json[:routes][0][:legs][0][:duration]).to have_key(:text)
+        expect(json[:routes][0][:legs][0][:duration][:text]).to eq("1 hour 49 mins")
+      end
+    end
   end
 end
