@@ -2,9 +2,11 @@ require 'rails_helper'
 
 RSpec.describe 'User Create Request' do
   it 'can create a user' do
-    user = {email: "jordan@example.com",
-            password: "password",
-            password_confirmation: "password"}
+    user = {user: {email: "jordan@example.com",
+                   password: "password",
+                   password_confirmation: "password"
+                  }
+           }
 
     post '/api/v1/users', params: user
 
@@ -12,20 +14,27 @@ RSpec.describe 'User Create Request' do
 
     json = JSON.parse(response.body, symbolize_names: true)[:body]
 
+    expect(response.code).to eq("201")
+    expect(json[:data]).to have_key(:id)
+    expect(json[:data][:type]).to eq("users")
     expect(json[:data][:attributes]).to have_key(:email)
     expect(json[:data][:attributes]).to have_key(:api_key)
   end
 
-  it 'should return 400 error if not correct information is sent' do
-    user = {email: "example@example.com",
-            password: "password",
-            password_confirmation: "password123"}
+  it 'returns 400 error if incorrect information is provided' do
+    user = {user: {email: "jordan@example.com",
+                   password: "password",
+                   password_confirmation: "incorrectpassword"
+                  }
+           }
 
     post '/api/v1/users', params: user
 
-    json = JSON.parse(response.body, symbolize_names: true)
+    expect(response).not_to be_successful
 
-    expect(json[:status]).to eq(400)
+    json = JSON.parse(response.body, symbolize_names: true)
+    
+    expect(response.code).to eq("400")
     expect(json[:body]).to eq("Password confirmation doesn't match Password")
   end
 end 
