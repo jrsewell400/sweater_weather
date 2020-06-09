@@ -6,7 +6,7 @@ class WeatherService
   end
 
   def weather_data(lat, long)
-    response = connection.get("onecall?lat=#{lat}&lon=#{long}&appid=#{ENV['WEATHER-API-KEY']}")
+    response = connection.get("onecall?lat=#{lat}&lon=#{long}")
     JSON.parse(response.body, symbolize_names: true)
   end
 end
